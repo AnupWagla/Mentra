@@ -1,0 +1,95 @@
+/* Login Page */
+
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.loginsection{
+    width:400px;
+    background:rgba(81, 226, 245, 0.05);
+    border:2px solid #51e2f5;
+    border-radius:20px;
+    padding:30px;
+}
+
+.login-logo{
+    display:block;
+    text-align:center;
+    text-decoration:none;
+    font-size:32px;
+    font-weight:bold;
+    color:#51e2f5;
+    margin-bottom:15px;
+}
+
+.login-title{
+    text-align:center;
+    color:#51e2f5;
+    margin-bottom:10px;
+}
+.Info{
+    text-align:center;
+    color:#b8cde8;
+    margin-bottom:25px;
+}
+
+.form-group{
+    margin-bottom:18px;
+    
+}
+
+.form-label{
+    display:block;
+    margin-bottom:6px;
+    color:white;
+}
+
+.required{
+    color:red;
+}
+
+.form-control{
+    width:100%;
+    padding:12px;
+    border:1px solid #51e2f5;
+    border-radius:8px;
+    background:rgba(255,255,255,0.05);
+    color:white;
+}
+
+.form-control:focus{
+    outline:none;
+    box-shadow:0 0 10px #51e2f5;
+}
+
+.btn-login{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#51e2f5;
+    color:black;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn-login:hover{
+    box-shadow:0 0 15px #51e2f5;
+}
+
+.Option{
+    text-align:center;
+    margin:20px 0;
+}
+.login-footer{
+    text-align:center;
+    margin-top:20px;
+}
+
+.login-footer a{
+    color:#51e2f5;
+    text-decoration:none;
+}
