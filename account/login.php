@@ -15,7 +15,7 @@
 
     <h2 class="login-title">Welcome Back</h2>
 
-     <form id="loginForm">
+     <form action="../backend/login_process.php" method="POST">
 
         <div class="form-group">
             <label class="form-label"> Email <span class="required"> * </span> </label>
