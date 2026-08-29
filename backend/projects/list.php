@@ -1,6 +1,7 @@
 <?php
 
 include "../db.php";
+/** @var mysqli $conn */
 
 $sql = "SELECT * FROM projects";
 

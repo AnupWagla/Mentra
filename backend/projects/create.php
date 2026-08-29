@@ -2,6 +2,7 @@
 
 session_start();
 include "../db.php";
+/** @var mysqli $conn */
 
 if (!isset($_SESSION['user_id'])) {
     die("Please login first.");

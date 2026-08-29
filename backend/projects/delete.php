@@ -1,6 +1,7 @@
 <?php
 
 include "../db.php";
+/** @var mysqli $conn */
 
 $id = $_POST['id'];
 
