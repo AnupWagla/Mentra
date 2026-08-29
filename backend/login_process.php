@@ -4,45 +4,55 @@ session_start();
 
 include "db.php";
 
-$email = $_POST['email'];
-$password = $_POST['password'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-$sql = "SELECT * FROM users WHERE email = ?";
+    $email = $_POST["email"];
+    $password = $_POST["password"];
 
-$stmt = mysqli_prepare($conn, $sql);
+    if (empty($email) || empty($password)) {
+        die("Please enter email and password.");
+    }
 
-mysqli_stmt_bind_param($stmt, "s", $email);
+    $sql = "SELECT id, name, email, password, role
+            FROM users
+            WHERE email = ?";
 
-mysqli_stmt_execute($stmt);
+    $stmt = mysqli_prepare($conn, $sql);
 
-$result = mysqli_stmt_get_result($stmt);
+    mysqli_stmt_bind_param($stmt, "s", $email);
+    mysqli_stmt_execute($stmt);
 
-if (mysqli_num_rows($result) == 1) {
+    $result = mysqli_stmt_get_result($stmt);
 
-    $user = mysqli_fetch_assoc($result);
+    if (mysqli_num_rows($result) == 1) {
 
-    if (password_verify($password, $user['password'])) {
+        $user = mysqli_fetch_assoc($result);
 
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['name'] = $user['name'];
-        $_SESSION['role'] = $user['role'];
+        if (password_verify($password, $user["password"])) {
 
-        header("Location: ../dashboard/dashboard.php");
-        exit();
+            $_SESSION["user_id"] = $user["id"];
+            $_SESSION["name"] = $user["name"];
+            $_SESSION["email"] = $user["email"];
+            $_SESSION["role"] = $user["role"];
+
+            header("Location: ../dashboard/dashboard.php");
+            exit();
+
+        } else {
+
+            echo "Wrong password.";
+
+        }
 
     } else {
 
-        echo "Incorrect password.";
+        echo "User not found.";
 
     }
 
-} else {
-
-    echo "User not found.";
-
+    mysqli_stmt_close($stmt);
 }
 
-mysqli_stmt_close($stmt);
 mysqli_close($conn);
 
 ?>

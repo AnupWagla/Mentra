@@ -1,36 +1,64 @@
-```php
 <?php
 
-include "config/db.php";
+include "db.php";
 
-$full_name = $_POST['name'];
-$email = $_POST['email'];
-$password = $_POST['password'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-$password = password_hash($password, PASSWORD_DEFAULT);
+    $name = $_POST["name"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
 
-$role = "student";
+    if (empty($name) || empty($email) || empty($password)) {
+        die("Please fill all fields.");
+    }
 
-$sql = "INSERT INTO users (full_name, email, password, role)
-        VALUES (?, ?, ?, ?)";
+    // Check if email already exists
+    $sql = "SELECT id FROM users WHERE email = ?";
+    $stmt = mysqli_prepare($conn, $sql);
 
-$stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "s", $email);
+    mysqli_stmt_execute($stmt);
 
-mysqli_stmt_bind_param($stmt, "ssss", $full_name, $email, $password, $role);
+    $result = mysqli_stmt_get_result($stmt);
 
-if (mysqli_stmt_execute($stmt)) {
+    if (mysqli_num_rows($result) > 0) {
+        die("Email already exists.");
+    }
 
-    echo "Registration successful.";
-    echo "<br><a href='../login/login.php'>Login here</a>";
+    // Encrypt password
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-} else {
+    // New account will be a student
+    $role = "student";
 
-    echo "Registration failed: " . mysqli_stmt_error($stmt);
+    $sql = "INSERT INTO users (name, email, password, role)
+            VALUES (?, ?, ?, ?)";
 
+    $stmt = mysqli_prepare($conn, $sql);
+
+    mysqli_stmt_bind_param(
+        $stmt,
+        "ssss",
+        $name,
+        $email,
+        $hashed_password,
+        $role
+    );
+
+    if (mysqli_stmt_execute($stmt)) {
+
+        header("Location: ../account/login.php");
+        exit();
+
+    } else {
+
+        echo "Registration failed.";
+
+    }
+
+    mysqli_stmt_close($stmt);
 }
 
-mysqli_stmt_close($stmt);
 mysqli_close($conn);
 
 ?>
-```
