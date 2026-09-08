@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Projects - Mentra Admin</title>
+    <title>Students - Mentra Admin</title>
     <link rel="stylesheet" href="admin.css">
 </head>
 <body>
@@ -13,17 +13,17 @@
 
 <div class="main">
 
-    <h1 class="page-title">All Projects</h1>
-    <p class="page-sub">View and manage all student projects.</p>
+    <h1 class="page-title">Students</h1>
+    <p class="page-sub">View all registered students.</p>
 
     <div class="card">
-        <p class="card-title">Projects List</p>
+        <p class="card-title">All Students</p>
         <table>
             <thead>
-                <tr><th>#</th><th>Project Title</th><th>Student</th><th>Supervisor</th><th>Department</th><th>Status</th></tr>
+                <tr><th>Name</th><th>Email</th><th>Roll No.</th><th>Department</th></tr>
             </thead>
             <tbody>
-                <tr><td colspan="6" style="text-align:center;color:#b8cde8;">No projects found.</td></tr>
+                <tr><td colspan="4" style="text-align:center;color:#b8cde8;">No students found.</td></tr>
             </tbody>
         </table>
     </div>

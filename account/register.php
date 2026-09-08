@@ -1,141 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Register — Mentra</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500&display=swap">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Mentra</title>
+    <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="register.css">
 </head>
-<body class="auth-page">
 
-    <div class="auth-wrapper">
-        
-        <!-- Right panel (form) -->
-        <main class="auth-form-wrap">
-            <div class="auth-card">
-                <div class="auth-card-header">
-                    <h1>Create your account</h1>
-                    <p>Already have an account? <a href="/login.php">Login in</a></p>
-                </div>
+<body>
 
-                <form method="POST" action="register.php">
+<div class="registersection">
 
-                    <!-- Row 1: Full Name + Email -->
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="full_name">Full Name <span class="req">*</span></label>
-                            <input type="text"
-                                   id="full_name"
-                                   name="full_name"
-                                   placeholder="e.g. Aarav Poudel"
-                                   required
-                                   autocomplete="name">
-                            <span class="field-error"></span>
-                        </div>
+    <a href="../index.php" class="register-logo">Mentra</a>
 
-                        <div class="form-group">
-                            <label for="email">Email Address <span class="req">*</span></label>
-                            <input type="email"
-                                   id="email"
-                                   name="email"
-                                   placeholder="you@college.edu"
-                                   required
-                                   autocomplete="email">
-                            <span class="field-error"></span>
-                        </div>
-                    </div>
+    <h2 class="register-title">Create Account</h2>
 
-                    <!-- Row 2: Roll Number + Phone -->
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="roll_number">Roll Number <span class="req">*</span></label>
-                            <input type="text"
-                                   id="roll_number"
-                                   name="roll_number"
-                                   placeholder="e.g. BCA-2024-001"
-                                   required>
-                            <span class="field-error"></span>
-                        </div>
+     <p class="info-text">Sign up to access your student dashboard</p>
+     
+    <form action="../backend/register_process.php" method="POST">
 
-                        <div class="form-group">
-                            <label for="phone">Phone Number <span class="opt">(optional)</span></label>
-                            <input type="tel"
-                                   id="phone"
-                                   name="phone"
-                                   placeholder="e.g. 9812345678">
-                        </div>
-                    </div>
-
-                    <!-- Department -->
-                    <div class="form-group">
-                        <label for="dept_id">Department <span class="req">*</span></label>
-                        <select id="dept_id" name="dept_id" required>
-                            <option value="">— Select your department —</option>
-                            <option value="1">BCA</option>
-                            <option value="2">BIT</option>
-                            <option value="3">BSc CSIT</option>
-                        </select>
-                        <span class="field-error"></span>
-                    </div>
-
-                    <!-- Row 3: Password + Confirm -->
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="password">Password <span class="req">*</span></label>
-                            <div class="input-wrap">
-                                <input type="password"
-                                       id="password"
-                                       name="password"
-                                       placeholder="Min 8 chars, 1 uppercase, 1 number"
-                                       required
-                                       autocomplete="new-password">
-                                <button type="button" class="eye-toggle" data-target="password" aria-label="Toggle password">
-                                    👁
-                                </button>
-                            </div>
-                            <span class="field-error"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="confirm_password">Confirm Password <span class="req">*</span></label>
-                            <div class="input-wrap">
-                                <input type="password"
-                                       id="confirm_password"
-                                       name="confirm_password"
-                                       placeholder="Re-enter your password"
-                                       required
-                                       autocomplete="new-password">
-                                <button type="button" class="eye-toggle" data-target="confirm_password" aria-label="Toggle password">
-                                    👁
-                                </button>
-                            </div>
-                            <span class="field-error"></span>
-                        </div>
-                    </div>
-
-                    <!-- Password strength bar -->
-                    <div class="strength-wrap" id="strengthWrap" style="display:none">
-                        <div class="strength-bar">
-                            <div class="strength-fill" id="strengthFill"></div>
-                        </div>
-                        <span class="strength-label" id="strengthLabel">Weak</span>
-                    </div>
-
-                    <button type="submit" class="btn-submit" id="submitBtn">
-                        Create Account →
-                    </button>
-
-                    <p class="terms">
-                        This account is for <strong>students only</strong>.
-                    </p>
-                      <a href="/" class="back-link">← Back to Home</a>
-                </form>
-
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">Full Name <span class="required">*</span></label>
+                <input type="text" id="full_name" name="full_name" class="form-control"
+                       placeholder="e.g. Anup Wagle" required autocomplete="name">
             </div>
-        </main>
+
+            <div class="form-group">
+                <label class="form-label">Email <span class="required">*</span></label>
+                <input type="email" id="email" name="email" class="form-control"
+                       placeholder="mentraservice@gmail.com" required autocomplete="email">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">Roll Number <span class="required">*</span></label>
+                <input type="text" id="roll_number" name="roll_number" class="form-control"
+                       placeholder="e.g. Tu Registered Code" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Phone <span class="optional">(optional)</span></label>
+                <input type="tel" id="phone" name="phone" class="form-control"
+                       placeholder="e.g. 9876543210">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Department <span class="required">*</span></label>
+            <select id="dept_id" name="dept_id" class="form-control" required autocomplete="tel">
+                <option value="">—> Select your department <—</option>
+                <option value="1">BCA</option>
+                <option value="2">BIT</option>
+                <option value="3">BSc CSIT</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">Password <span class="required">*</span></label>
+                <input type="password" id="password" name="password" class="form-control"
+                       placeholder="Min 8 chars" required autocomplete="new-password">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Confirm Password <span class="required">*</span></label>
+                <input type="password" id="confirm_password" name="confirm_password" class="form-control"
+                       placeholder="Re-enter password" required autocomplete="new-password">
+            </div>
+        </div>
+
+        <button type="submit" class="btn-register">Create Account →</button>
+
+    </form>
+
+    <div class="register-footer">
+        <p>Already have an account? <a href="login.php">Sign in</a></p>
+        <br>
+        <p><a href="../index.php">← Back to Home</a></p>
     </div>
+
+</div>
 
 </body>
 </html>
