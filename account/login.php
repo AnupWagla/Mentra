@@ -19,6 +19,10 @@
 
     <h2 class="login-title">Welcome Back</h2>
 
+    <?php if (isset($_GET['error'])): ?>
+        <p style="color:red;text-align:center;margin-bottom:12px;">Wrong email or password.</p>
+    <?php endif; ?>
+
     <form action="../backend/login_process.php" method="POST">
 
         <div class="form-group">
