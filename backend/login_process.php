@@ -1,54 +1,55 @@
 <?php
+
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: ../account/login.php');
-    exit;
+include "../db.php";
+/** @var mysqli $conn */
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    header("Loction: ../account/login.php");
+    exit();
 }
+    $email = trim($_POST["email"]);
+    $password = trim($_POST["password"]);
 
-$email    = trim($_POST['email'] ?? '');
-$password = trim($_POST['password'] ?? '');
+    $sql = "SELECT * FROM users WHERE email = ?";
 
-if (empty($email) || empty($password)) {
-    die('Please enter email and password. <a href="../account/login.php">Go back</a>');
-}
+    $stmt = mysqli_prepare($conn, $sql);
 
-// ── Hardcoded users (no database needed yet) ─────────────────
-$users = [
-    [
-        'email'    => 'mentraadmin@gmail.com',
-        'password' => 'mentraadmin123',
-        'name'     => 'Admin',
-        'role'     => 'admin',
-    ],
-    [
-        'email'    => 'student@mentra.local',
-        'password' => 'student123',
-        'name'     => 'Test Student',
-        'role'     => 'student',
-    ],
-];
+    mysqli_stmt_bind_param($stmt, "s", $email);
+    mysqli_stmt_execute($stmt);
 
-$found = false;
-foreach ($users as $user) {
-    if ($user['email'] === $email && $user['password'] === $password) {
-        $_SESSION['name']  = $user['name'];
-        $_SESSION['email'] = $user['email'];
-        $_SESSION['role']  = $user['role'];
+    $result = mysqli_stmt_get_result($stmt);
 
-        if ($user['role'] === 'admin') {
-            $_SESSION['admin'] = true;
-            header('Location: ../admin/dashboard.php');
+    if (mysqli_num_rows($result) === 1) {
+
+        $user = mysqli_fetch_assoc($result);
+
+        if (password_verify($password, $user['password'])) {
+
+            $_SESSION["user_id"] = $user["id"];
+            $_SESSION["name"] = $user["full_name"];
+            $_SESSION["email"] = $user["email"];
+            $_SESSION["role"] = $user["role"];
+            $_SESSION["department"] = $user["department"];
+
+            header("Location: ../dashboard/dashboard.php");
+            exit();
+
         } else {
-            header('Location: ../dashboard/dashboard.php');
-        }
-        $found = true;
-        exit;
-    }
-}
 
-if (!$found) {
-    header('Location: ../account/login.php?error=1');
-    exit;
-}
+            echo "Wrong password.";
+
+        }
+
+    } else {
+
+        echo "User not found.";
+
+    }
+
+    mysqli_stmt_close($stmt);
+
+mysqli_close($conn);
+
 ?>
