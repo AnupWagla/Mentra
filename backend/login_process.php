@@ -6,17 +6,13 @@ include "../db.php";
 /** @var mysqli $conn */
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    header("Loction: ../account/login.php");
+    exit();
+}
+    $email = trim($_POST["email"]);
+    $password = trim($_POST["password"]);
 
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-
-    if (empty($email) || empty($password)) {
-        die("Please enter email and password.");
-    }
-
-    $sql = "SELECT id, name, email, password, role
-            FROM users
-            WHERE email = ?";
+    $sql = "SELECT * FROM users WHERE email = ?";
 
     $stmt = mysqli_prepare($conn, $sql);
 
@@ -25,16 +21,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $result = mysqli_stmt_get_result($stmt);
 
-    if (mysqli_num_rows($result) == 1) {
+    if (mysqli_num_rows($result) === 1) {
 
         $user = mysqli_fetch_assoc($result);
 
-        if (password_verify($password, $user["password"])) {
+        if (password_verify($password, $user['password'])) {
 
             $_SESSION["user_id"] = $user["id"];
-            $_SESSION["name"] = $user["name"];
+            $_SESSION["name"] = $user["full_name"];
             $_SESSION["email"] = $user["email"];
             $_SESSION["role"] = $user["role"];
+            $_SESSION["department"] = $user["department"];
 
             header("Location: ../dashboard/dashboard.php");
             exit();
@@ -52,7 +49,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     mysqli_stmt_close($stmt);
-}
 
 mysqli_close($conn);
 
