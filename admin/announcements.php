@@ -1,9 +1,4 @@
-<?php
-require 'auth.php';
-include '../backend/db.php';
-
-$announcements = @mysqli_query($conn, "SELECT * FROM announcements ORDER BY created_at DESC");
-?>
+<?php require 'auth.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,10 +15,6 @@ $announcements = @mysqli_query($conn, "SELECT * FROM announcements ORDER BY crea
 
     <h1 class="page-title">Announcements</h1>
     <p class="page-sub">Post and manage announcements.</p>
-
-    <?php if (isset($_GET['success'])): ?>
-        <p class="msg-success">✓ Announcement posted successfully.</p>
-    <?php endif; ?>
 
     <div class="card">
         <p class="card-title">Post New Announcement</p>
@@ -55,16 +46,7 @@ $announcements = @mysqli_query($conn, "SELECT * FROM announcements ORDER BY crea
                 <tr><th>Title</th><th>Target</th><th>Date</th></tr>
             </thead>
             <tbody>
-                <?php if ($announcements && mysqli_num_rows($announcements) > 0):
-                    while ($a = mysqli_fetch_assoc($announcements)): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($a['title']) ?></td>
-                        <td><?= htmlspecialchars($a['target']) ?></td>
-                        <td><?= $a['created_at'] ?></td>
-                    </tr>
-                <?php endwhile; else: ?>
-                    <tr><td colspan="3" style="text-align:center;color:#b8cde8;">No announcements yet.</td></tr>
-                <?php endif; ?>
+                <tr><td colspan="3" style="text-align:center;color:#b8cde8;">No announcements yet.</td></tr>
             </tbody>
         </table>
     </div>

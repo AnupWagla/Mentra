@@ -1,12 +1,4 @@
-<?php
-require 'auth.php';
-include '../backend/db.php';
-
-$departments = @mysqli_query($conn, "SELECT d.id, d.name, d.description,
-    (SELECT COUNT(*) FROM users WHERE dept_id = d.id AND role='student') AS students,
-    (SELECT COUNT(*) FROM users WHERE dept_id = d.id AND role='supervisor') AS supervisors
-    FROM departments d ORDER BY d.name");
-?>
+<?php require 'auth.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,10 +15,6 @@ $departments = @mysqli_query($conn, "SELECT d.id, d.name, d.description,
 
     <h1 class="page-title">Departments</h1>
     <p class="page-sub">Manage college departments.</p>
-
-    <?php if (isset($_GET['success'])): ?>
-        <p class="msg-success">✓ Department added successfully.</p>
-    <?php endif; ?>
 
     <div class="card">
         <p class="card-title">Add Department</p>
@@ -50,17 +38,9 @@ $departments = @mysqli_query($conn, "SELECT d.id, d.name, d.description,
                 <tr><th>Name</th><th>Description</th><th>Students</th><th>Supervisors</th></tr>
             </thead>
             <tbody>
-                <?php if ($departments && mysqli_num_rows($departments) > 0):
-                    while ($d = mysqli_fetch_assoc($departments)): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($d['name']) ?></td>
-                        <td><?= htmlspecialchars($d['description'] ?? '—') ?></td>
-                        <td><?= $d['students'] ?></td>
-                        <td><?= $d['supervisors'] ?></td>
-                    </tr>
-                <?php endwhile; else: ?>
-                    <tr><td colspan="4" style="text-align:center;color:#b8cde8;">No departments found.</td></tr>
-                <?php endif; ?>
+                <tr><td>BCA</td><td>Bachelor of Computer Application</td><td>0</td><td>0</td></tr>
+                <tr><td>BIT</td><td>Bachelor of Information Technology</td><td>0</td><td>0</td></tr>
+                <tr><td>BSc CSIT</td><td>BSc Computer Science &amp; IT</td><td>0</td><td>0</td></tr>
             </tbody>
         </table>
     </div>

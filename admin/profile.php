@@ -18,7 +18,7 @@
 
     <div class="card">
         <p class="card-title">Account Details</p>
-        <form method="POST" action="../backend/profile_process.php">
+        <form method="POST" action="../backend/admin/profile_process.php">
             <div class="form-group">
                 <label>Full Name</label>
                 <input type="text" name="full_name" placeholder="Your name">
@@ -36,6 +36,5 @@
     </div>
 
 </div>
-
 </body>
 </html>

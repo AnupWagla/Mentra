@@ -1,13 +1,4 @@
-<?php
-require 'auth.php';
-include '../backend/db.php';
-
-// Load departments for dropdown
-$depts = @mysqli_query($conn, "SELECT id, name FROM departments ORDER BY name");
-
-// Load all supervisors
-$supervisors = @mysqli_query($conn, "SELECT u.id, u.name, u.email, d.name AS dept FROM users u LEFT JOIN departments d ON u.dept_id = d.id WHERE u.role='supervisor' ORDER BY u.name");
-?>
+<?php require 'auth.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,13 +16,6 @@ $supervisors = @mysqli_query($conn, "SELECT u.id, u.name, u.email, d.name AS dep
     <h1 class="page-title">Supervisors</h1>
     <p class="page-sub">Add and manage supervisors.</p>
 
-    <?php if (isset($_GET['success'])): ?>
-        <p class="msg-success">✓ Supervisor added successfully. Default password: <strong>supervisor123</strong></p>
-    <?php endif; ?>
-    <?php if (isset($_GET['error']) && $_GET['error'] === 'exists'): ?>
-        <p class="msg-error">✗ Email already exists.</p>
-    <?php endif; ?>
-
     <div class="card">
         <p class="card-title">Add Supervisor</p>
         <form method="POST" action="../backend/admin/add_supervisor.php">
@@ -47,9 +31,9 @@ $supervisors = @mysqli_query($conn, "SELECT u.id, u.name, u.email, d.name AS dep
                 <label>Department</label>
                 <select name="dept_id" required>
                     <option value="">— Select Department —</option>
-                    <?php if ($depts): while ($d = mysqli_fetch_assoc($depts)): ?>
-                        <option value="<?= $d['id'] ?>"><?= htmlspecialchars($d['name']) ?></option>
-                    <?php endwhile; endif; ?>
+                    <option value="1">BCA</option>
+                    <option value="2">BIT</option>
+                    <option value="3">BSc CSIT</option>
                 </select>
             </div>
             <button type="submit" class="btn">Add Supervisor</button>
@@ -60,20 +44,10 @@ $supervisors = @mysqli_query($conn, "SELECT u.id, u.name, u.email, d.name AS dep
         <p class="card-title">All Supervisors</p>
         <table>
             <thead>
-                <tr><th>Name</th><th>Email</th><th>Department</th><th>Action</th></tr>
+                <tr><th>Name</th><th>Email</th><th>Department</th></tr>
             </thead>
             <tbody>
-                <?php if ($supervisors && mysqli_num_rows($supervisors) > 0):
-                    while ($s = mysqli_fetch_assoc($supervisors)): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($s['name']) ?></td>
-                        <td><?= htmlspecialchars($s['email']) ?></td>
-                        <td><?= htmlspecialchars($s['dept'] ?? '—') ?></td>
-                        <td><a href="../backend/admin/delete_user.php?id=<?= $s['id'] ?>&back=supervisors" onclick="return confirm('Delete this supervisor?')" style="color:#e07;">Delete</a></td>
-                    </tr>
-                <?php endwhile; else: ?>
-                    <tr><td colspan="4" style="text-align:center;color:#b8cde8;">No supervisors found.</td></tr>
-                <?php endif; ?>
+                <tr><td colspan="3" style="text-align:center;color:#b8cde8;">No supervisors found.</td></tr>
             </tbody>
         </table>
     </div>
