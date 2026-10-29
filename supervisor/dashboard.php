@@ -1,9 +1,32 @@
 <?php
-require_once "../Mentra/backend/supervisor_check.php";
-require_once "../Mentra/backend/db.php";
+require_once __DIR__ . "/../backend/supervisor_check.php";
+require_once __DIR__ . "/../backend/db.php";
 
-$sql = "SELECT projects.id,projects.title,projects.category,projects.status,projects.created_at,users.full_name FROM projects JOIN users on projects.student_id = users.id ORDER BY projects.created_at DESC";
-$result = mysqli_query($conn,$sql);
+
+$supervisor_id = $_SESSION["user_id"];
+
+$sql = "SELECT
+            projects.id,
+            projects.title,
+            projects.category,
+            projects.status,
+            projects.created_at,
+            users.full_name
+        FROM projects
+        JOIN users
+            ON projects.student_id = users.id
+        JOIN supervisor_assignments
+            ON projects.id = supervisor_assignments.project_id
+        WHERE supervisor_assignments.supervisor_id = ?
+        ORDER BY projects.created_at DESC";
+
+$stmt = mysqli_prepare($conn, $sql);
+
+mysqli_stmt_bind_param($stmt, "i", $supervisor_id);
+mysqli_stmt_execute($stmt);
+
+$result = mysqli_stmt_get_result($stmt);
+
 ?>
 
 <!DOCTYPE html>

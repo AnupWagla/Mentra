@@ -262,14 +262,12 @@ $feedback_result =
         </p>
 
 
-        <a
-            href="feedback.php?id=<?php
-                echo $project_id;
-            ?>"
-            class="feedback-btn"
-        >
-            Give Feedback
-        </a>
+      <a
+    href="../feedback.php?id=<?php echo $project_id; ?>"
+    class="feedback-btn"
+>
+    Give Feedback
+</a>
 
     </section>
 

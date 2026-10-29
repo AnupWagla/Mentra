@@ -1,57 +1,128 @@
-<?php require 'auth.php'; ?>
+<?php
+
+require_once "../backend/admin_check.php";
+require_once "../backend/db.php";
+/** @var mysqli $conn */
+
+
+$sql = "SELECT id, full_name, email,
+               phone, department, created_at
+
+        FROM users
+
+        WHERE role = 'supervisor'
+
+        ORDER BY full_name";
+
+
+$result = mysqli_query($conn, $sql);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Supervisors - Mentra Admin</title>
-    <link rel="stylesheet" href="admin.css">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Supervisors - Mentra</title>
+
+    <link rel="stylesheet"
+          href="admin.css">
+
 </head>
+
+
 <body>
 
-<?php include 'sidebar.php'; ?>
 
-<div class="main">
+<header class="header">
 
-    <h1 class="page-title">Supervisors</h1>
-    <p class="page-sub">Add and manage supervisors.</p>
+    <h2>Mentra Admin</h2>
 
-    <div class="card">
-        <p class="card-title">Add Supervisor</p>
-        <form method="POST" action="../backend/admin/add_supervisor.php">
-            <div class="form-group">
-                <label>Full Name</label>
-                <input type="text" name="full_name" placeholder="e.g. Dr. Anita Thapa" required>
-            </div>
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" name="email" placeholder="supervisor@college.edu" required>
-            </div>
-            <div class="form-group">
-                <label>Department</label>
-                <select name="dept_id" required>
-                    <option value="">— Select Department —</option>
-                    <option value="1">BCA</option>
-                    <option value="2">BIT</option>
-                    <option value="3">BSc CSIT</option>
-                </select>
-            </div>
-            <button type="submit" class="btn">Add Supervisor</button>
-        </form>
-    </div>
+    <a href="dashboard.php">
+        Dashboard
+    </a>
 
-    <div class="card">
-        <p class="card-title">All Supervisors</p>
+</header>
+
+
+<main class="container">
+
+    <h1>Supervisors</h1>
+
+
+    <div class="table-container">
+
         <table>
+
             <thead>
-                <tr><th>Name</th><th>Email</th><th>Department</th></tr>
+
+                <tr>
+
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Department</th>
+                    <th>Phone</th>
+
+                </tr>
+
             </thead>
+
+
             <tbody>
-                <tr><td colspan="3" style="text-align:center;color:#b8cde8;">No supervisors found.</td></tr>
+
+            <?php while ($supervisor = mysqli_fetch_assoc($result)): ?>
+
+                <tr>
+
+                    <td>
+                        <?php
+                        echo htmlspecialchars(
+                            $supervisor['full_name']
+                        );
+                        ?>
+                    </td>
+
+                    <td>
+                        <?php
+                        echo htmlspecialchars(
+                            $supervisor['email']
+                        );
+                        ?>
+                    </td>
+
+                    <td>
+                        <?php
+                        echo htmlspecialchars(
+                            $supervisor['department']
+                        );
+                        ?>
+                    </td>
+
+                    <td>
+                        <?php
+                        echo htmlspecialchars(
+                            $supervisor['phone']
+                        );
+                        ?>
+                    </td>
+
+                </tr>
+
+            <?php endwhile; ?>
+
             </tbody>
+
         </table>
+
     </div>
 
-</div>
+</main>
+
 </body>
 </html>

@@ -1,7 +1,7 @@
 <?php
 
-require_once "../backend/supervisor_check.php";
-require_once "../backend/db.php";
+require_once __DIR__ . "/backend/supervisor_check.php";
+require_once __DIR__ . "/backend/db.php";
 /** @var mysqli $conn */
 
 
@@ -78,9 +78,7 @@ mysqli_stmt_close($stmt);
 
     <h2>Mentra</h2>
 
-    <a href="dashboard.php">
-        Dashboard
-    </a>
+    <a href="dashboard/dashboard.php">Dashboard</a>
 
 </header>
 
@@ -124,7 +122,7 @@ mysqli_stmt_close($stmt);
 
 
         <form
-            action="../backend/save_feedback.php"
+            action="backend/save_feedback.php"
             method="POST"
         >
 

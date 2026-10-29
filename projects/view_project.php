@@ -1,6 +1,6 @@
 <?php
-require_once "../Mentra/backend/auth_check.php";
-require_once "../Mentra/backenddb.php";
+require_once __DIR__ . "/../backend/auth_check.php";
+require_once __DIR__ . "/../backend/db.php";
 /** @var mysqli $conn */
 
 if(!isset($_GET['id'])){
@@ -73,6 +73,40 @@ $version_result = mysqli_stmt_get_result($version_stmt);
                     <?php echo htmlspecialchars($project['status']); ?>
                 </strong>
             </div>
+            
+<?php if ($project['status'] === 'Revision Required'): ?>
+
+    <section class="section">
+        <h2>Revise Your Proposal</h2>
+
+        <p>
+            Your supervisor has requested changes to your proposal.
+            Please read the feedback below, update your description,
+            and submit your revision.
+        </p>
+
+        <form action="submit_revision.php" method="POST">
+            <input
+                type="hidden"
+                name="project_id"
+                value="<?php echo $project['id']; ?>"
+            >
+
+            <label for="description">Revised Project Description</label>
+
+            <textarea
+                name="description"
+                id="description"
+                rows="8"
+                required
+            ><?php echo htmlspecialchars($project['description']); ?></textarea>
+
+            <button type="submit">Submit Revision</button>
+        </form>
+    </section>
+
+<?php endif; ?>
+
 
             <p>
                 <strong>Category:</strong>
