@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 13, 2026 at 12:36 PM
+-- Generation Time: Oct 29, 2026 at 10:21 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -36,6 +36,14 @@ CREATE TABLE `feedback` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `feedback`
+--
+
+INSERT INTO `feedback` (`id`, `project_id`, `supervisor_id`, `feedback`, `status`, `created_at`) VALUES
+(1, 1, 1, 'improve it now i will reject you for a while', '', '2026-10-29 07:03:03'),
+(2, 1, 1, 'sdjjdshidaida', 'Revision Required', '2026-10-29 07:09:29');
+
 -- --------------------------------------------------------
 
 --
@@ -53,6 +61,14 @@ CREATE TABLE `projects` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `projects`
+--
+
+INSERT INTO `projects` (`id`, `student_id`, `title`, `description`, `category`, `status`, `created_at`, `updated_at`) VALUES
+(1, 3, 'Mentra', 'It is sweet and simple', 'Web Development', 'Revision Required', '2026-10-29 06:09:51', '2026-10-29 07:09:29'),
+(2, 2, 'DOCS', 'trying', 'Mobile Application', 'Under Review', '2026-10-29 06:23:20', '2026-10-29 06:34:22');
+
 -- --------------------------------------------------------
 
 --
@@ -69,6 +85,14 @@ CREATE TABLE `project_versions` (
   `submitted_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `project_versions`
+--
+
+INSERT INTO `project_versions` (`id`, `project_id`, `version_number`, `description`, `file_name`, `status`, `submitted_at`) VALUES
+(1, 1, 1, 'It is sweet and simple', NULL, 'Submitted', '2026-10-29 06:09:51'),
+(2, 2, 1, 'trying', NULL, 'Submitted', '2026-10-29 06:23:20');
+
 -- --------------------------------------------------------
 
 --
@@ -81,6 +105,14 @@ CREATE TABLE `supervisor_assignments` (
   `supervisor_id` int(11) NOT NULL,
   `assigned_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `supervisor_assignments`
+--
+
+INSERT INTO `supervisor_assignments` (`id`, `project_id`, `supervisor_id`, `assigned_at`) VALUES
+(1, 1, 1, '2026-10-29 06:14:31'),
+(2, 2, 4, '2026-10-29 06:34:22');
 
 -- --------------------------------------------------------
 
@@ -106,7 +138,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `full_name`, `email`, `roll_number`, `phone`, `department`, `password`, `role`, `created_at`) VALUES
 (1, 'Supervisor', 'supervisor@mentra.com', NULL, '9823420616', 'BCA', '$2y$10$MG5AIFVma0vpueJXehQd3u1QeC2hHS8SyvLyEdVjx5/Bo.pxfwQA6', 'supervisor', '2026-09-13 10:09:26'),
-(2, 'System Administrator', 'admin@mentra.com', NULL, '9803329786', 'BCA', '$2y$10$oXLOlFlbmaByAKJhK6BWK.nvhbpUVkdiCZkZMgrdP1bpeoL0G80Hi', 'admin', '2026-09-13 10:13:42');
+(2, 'System Administrator', 'admin@mentra.com', NULL, '9803329786', 'BCA', '$2y$10$6Epzbfpgt3NoROl5EiXbMeT1rRhkiwV6HJRsb1mNUMGyDyX8OkMbS', 'admin', '2026-09-13 10:13:42'),
+(3, 'FaiJur', 'faijurrahaman94@gmail.com', '12345678', '', 'BCA', '$2y$10$yhNGQtopDsUjgxppPVXVCOFzcgRBit/nxEn77P6eVAoRpov.87RWi', 'student', '2026-10-29 06:02:39'),
+(4, 'Supervisor Two', 'supervisor2@mentra.com', NULL, NULL, 'BCA', '$2y$10$2w0.BWOGUIfRqE4QxUTPgOE62hV83PzcJbUNQ8ODZrq0QPbGdYzXG', 'supervisor', '2026-10-29 06:31:59');
 
 --
 -- Indexes for dumped tables
@@ -158,31 +192,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `project_versions`
 --
 ALTER TABLE `project_versions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `supervisor_assignments`
 --
 ALTER TABLE `supervisor_assignments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
