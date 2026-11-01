@@ -1,8 +1,8 @@
 
 <?php
 
-require_once __DIR__ . "/../backend/auth_check.php";
-require_once __DIR__ . "/../backend/db.php";
+require_once __DIR__ . "/../account/auth_check.php";
+require_once __DIR__ . "/../db.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: view_project.php");

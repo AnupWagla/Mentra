@@ -1,7 +1,7 @@
 <?php
 
 require_once "../backend/admin_check.php";
-require_once "../backend/db.php";
+require_once "../db.php";
 /** @var mysqli $conn */
 
 
@@ -72,27 +72,8 @@ $pending = mysqli_fetch_assoc($result)['total'];
 
 <body>
 
-<header class="header">
-
-    <h2>Mentra Admin</h2>
-
-    <div>
-
-        <span>
-            <?php
-            echo htmlspecialchars($_SESSION['name']);
-            ?>
-        </span>
-
-        <a href="../backend/logout.php">
-            Logout
-        </a>
-
-    </div>
-
-</header>
-
-
+<?php include 'sidebar.php'; ?>
+<div class="page-wrapper">
 <main class="container">
 
     <h1>Admin Dashboard</h1>
@@ -101,6 +82,15 @@ $pending = mysqli_fetch_assoc($result)['total'];
         Manage students, supervisors and projects.
     </p>
 
+
+    </div>
+
+    <!-- Admin Links -->
+    <div class="admin-links">
+        <a href="students.php">Manage Students</a>
+        <a href="supervisors.php">Manage Supervisors</a>
+        <a href="projects.php">Manage Projects</a>
+    </div>
 
     <div class="stats">
 
@@ -167,6 +157,7 @@ $pending = mysqli_fetch_assoc($result)['total'];
     </div>
 
 </main>
+</div>
 
 </body>
 </html>

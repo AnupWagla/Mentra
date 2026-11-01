@@ -6,7 +6,7 @@ $_SESSION = [];
 
 session_destroy();
 
-header("Location: ../account/login.php");
+header("Location: login.php");
 exit();
 
 ?>

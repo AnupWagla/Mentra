@@ -1,7 +1,7 @@
 <?php
 
-require_once "../backend/supervisor_check.php";
-require_once "../backend/db.php";
+require_once "supervisor_check.php";
+require_once "../db.php";
 /** @var mysqli $conn */
 
 
@@ -13,11 +13,12 @@ if (!isset($_GET['id'])) {
 }
 
 
-$project_id = intval($_GET['id']);
+$project_id    = intval($_GET['id']);
+$supervisor_id = $_SESSION['user_id'];
 
 
 /*
-    Get project
+    Get project — only if this supervisor is assigned to it
 */
 
 $sql = "SELECT
@@ -32,6 +33,10 @@ $sql = "SELECT
         JOIN users
         ON projects.student_id = users.id
 
+        JOIN supervisor_assignments sa
+        ON sa.project_id = projects.id
+        AND sa.supervisor_id = ?
+
         WHERE projects.id = ?";
 
 
@@ -39,7 +44,8 @@ $stmt = mysqli_prepare($conn, $sql);
 
 mysqli_stmt_bind_param(
     $stmt,
-    "i",
+    "ii",
+    $supervisor_id,
     $project_id
 );
 
@@ -135,7 +141,7 @@ $feedback_result =
             Dashboard
         </a>
 
-        <a href="../backend/logout.php">
+        <a href="../account/logout.php">
             Logout
         </a>
 

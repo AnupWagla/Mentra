@@ -1,7 +1,7 @@
 <?php
 
-require_once "supervisor_check.php";
-require_once "db.php";
+require_once '../supervisor/supervisor_check.php';
+require_once 'db.php';
 /** @var mysqli $conn */
 
 

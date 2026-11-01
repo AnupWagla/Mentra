@@ -19,7 +19,7 @@
 
      <p class="info-text">Sign up to access your student dashboard</p>
      
-    <form action="../backend/register_process.php" method="POST">
+    <form action="register_process.php" method="POST">
 
         <div class="form-row">
             <div class="form-group">
@@ -51,12 +51,44 @@
 
         <div class="form-group">
             <label class="form-label">Department <span class="required">*</span></label>
-            <select id="dept_id" name="dept_id" class="form-control" required autocomplete="tel">
+            <select id="dept_id" name="dept_id" class="form-control" required>
                 <option value="">—> Select your department <—</option>
                 <option value="1">BCA</option>
                 <option value="2">BIT</option>
                 <option value="3">BSc CSIT</option>
             </select>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">Batch <span class="required">*</span></label>
+                <select id="batch" name="batch" class="form-control" required>
+                    <option value="">—> Select Batch <—</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Semester <span class="required">*</span></label>
+                <select id="semester" name="semester" class="form-control" required>
+                    <option value="">—> Select Semester <—</option>
+                    <option value="1st">1st</option>
+                    <option value="2nd">2nd</option>
+                    <option value="3rd">3rd</option>
+                    <option value="4th">4th</option>
+                    <option value="5th">5th</option>
+                    <option value="6th">6th</option>
+                    <option value="7th">7th</option>
+                    <option value="8th">8th</option>
+                </select>
+            </div>
         </div>
 
         <div class="form-row">

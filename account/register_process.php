@@ -2,12 +2,12 @@
 <?php
 session_start();
 
-require_once __DIR__ . "/db.php";
+require_once __DIR__ . "/../db.php";
 /** @var mysqli $conn */
 
 // Allow registration only through the form.
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    header("Location: ../account/register.php");
+    header("Location: register.php");
     exit();
 }
 
@@ -17,6 +17,8 @@ $email = trim($_POST["email"] ?? "");
 $roll_num = trim($_POST["roll_number"] ?? "");
 $phone = trim($_POST["phone"] ?? "");
 $dept_id = $_POST["dept_id"] ?? "";
+$batch = trim($_POST["batch"] ?? "");
+$semester = trim($_POST["semester"] ?? "");
 $password = $_POST["password"] ?? "";
 $confirm_password = $_POST["confirm_password"] ?? "";
 
@@ -26,6 +28,8 @@ if (
     $email === "" ||
     $roll_num === "" ||
     $dept_id === "" ||
+    $batch === "" ||
+    $semester === "" ||
     $password === "" ||
     $confirm_password === ""
 ) {
@@ -105,8 +109,8 @@ $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 // Create a student account.
 // Public registration cannot create admin or supervisor accounts.
 $sql = "INSERT INTO users
-        (full_name, email, roll_number, phone, department, password, role)
-        VALUES (?, ?, ?, ?, ?, ?, 'student')";
+        (full_name, email, roll_number, phone, department, batch, semester, password, role)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'student')";
 
 $stmt = mysqli_prepare($conn, $sql);
 
@@ -116,12 +120,14 @@ if (!$stmt) {
 
 mysqli_stmt_bind_param(
     $stmt,
-    "ssssss",
+    "ssssssss",
     $full_name,
     $email,
     $roll_num,
     $phone,
     $department,
+    $batch,
+    $semester,
     $hashed_password
 );
 
@@ -130,7 +136,7 @@ if (mysqli_stmt_execute($stmt)) {
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
 
-    header("Location: ../account/login.php?registered=1");
+    header("Location: login.php?registered=1");
     exit();
 } else {
     $error = mysqli_stmt_error($stmt);

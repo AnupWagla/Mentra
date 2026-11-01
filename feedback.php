@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__ . "/backend/supervisor_check.php";
-require_once __DIR__ . "/backend/db.php";
+require_once __DIR__ . "/supervisor/supervisor_check.php";
+require_once __DIR__ . "/db.php";
 /** @var mysqli $conn */
 
 
@@ -13,23 +13,28 @@ if (!isset($_GET['id'])) {
 }
 
 
-$project_id = intval($_GET['id']);
+$project_id    = intval($_GET['id']);
+$supervisor_id = $_SESSION['user_id'];
 
 
 /*
-    Get project
+    Get project — only if this supervisor is assigned to it
 */
 
-$sql = "SELECT *
-        FROM projects
-        WHERE id = ?";
+$sql = "SELECT p.*
+        FROM projects p
+        JOIN supervisor_assignments sa
+            ON sa.project_id = p.id
+            AND sa.supervisor_id = ?
+        WHERE p.id = ?";
 
 
 $stmt = mysqli_prepare($conn, $sql);
 
 mysqli_stmt_bind_param(
     $stmt,
-    "i",
+    "ii",
+    $supervisor_id,
     $project_id
 );
 
@@ -40,7 +45,7 @@ $result = mysqli_stmt_get_result($stmt);
 
 if (mysqli_num_rows($result) !== 1) {
 
-    die("Project not found.");
+    die("Access denied or project not found.");
 
 }
 
@@ -78,7 +83,7 @@ mysqli_stmt_close($stmt);
 
     <h2>Mentra</h2>
 
-    <a href="dashboard/dashboard.php">Dashboard</a>
+    <a href="student/dashboard.php">Dashboard</a>
 
 </header>
 

@@ -24,7 +24,7 @@ $supervisor_id = intval($_POST['supervisor_id']);
 $sql = "SELECT id
         FROM users
         WHERE id = ?
-        AND role = 'supervisor'";
+        AND role = 'supervisor' AND is_active = 1";
 
 
 $stmt = mysqli_prepare($conn, $sql);

@@ -2,7 +2,7 @@
 <?php
 session_start();
 
-require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/../db.php';
 
 /** @var mysqli $conn */
 
@@ -48,7 +48,7 @@ if ($user = mysqli_fetch_assoc($result)) {
 
 } elseif ($user["role"] === "student") {
 
-    header("Location: ../dashboard/dashboard.php");
+    header("Location: ../student/dashboard.php");
 
 } elseif ($user["role"] === "supervisor") {
 

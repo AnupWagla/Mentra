@@ -1,8 +1,8 @@
 <?php
-require_once "auth_check.php";
+require_once '../account/auth_check.php';
 
 if($_SESSION['role'] !== 'admin'){
-    header("Location: ../dashboard/dashboard.php");
+    header("Location: ../student/dashboard.php");
     exit();
 }
 ?>

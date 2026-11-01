@@ -1,7 +1,7 @@
 
 <?php
 require_once __DIR__ . "/../backend/admin_check.php";
-require_once __DIR__ . "/../backend/db.php";
+require_once __DIR__ . "/../db.php";
 /** @var mysqli $conn */
 
 if (!isset($_GET['id']) || intval($_GET['id']) <= 0) {
@@ -42,7 +42,7 @@ mysqli_stmt_close($stmt);
 // Get available supervisors
 $supervisor_sql = "SELECT id, full_name, email, department
                    FROM users
-                   WHERE role = 'supervisor'
+                   WHERE role = 'supervisor' AND is_active = 1
                    ORDER BY full_name";
 
 $supervisor_result = mysqli_query($conn, $supervisor_sql);
@@ -62,11 +62,8 @@ if (!$supervisor_result) {
 </head>
 <body>
 
-<header class="header">
-    <h2>Mentra Admin</h2>
-    <a href="projects.php">Back to Projects</a>
-</header>
-
+<?php include 'sidebar.php'; ?>
+<div class="page-wrapper">
 <main class="container">
     <div class="form-card">
         <h1>Assign Supervisor</h1>
@@ -128,6 +125,7 @@ if (!$supervisor_result) {
         </form>
     </div>
 </main>
+</div>
 
 </body>
 </html>

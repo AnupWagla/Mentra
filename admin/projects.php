@@ -1,7 +1,7 @@
 <?php
 
 require_once "../backend/admin_check.php";
-require_once "../backend/db.php";
+require_once "../db.php";
 /** @var mysqli $conn */
 
 
@@ -55,17 +55,8 @@ $result = mysqli_query($conn, $sql);
 <body>
 
 
-<header class="header">
-
-    <h2>Mentra Admin</h2>
-
-    <a href="dashboard.php">
-        Dashboard
-    </a>
-
-</header>
-
-
+<?php include 'sidebar.php'; ?>
+<div class="page-wrapper">
 <main class="container">
 
     <h1>Project Management</h1>
@@ -170,6 +161,7 @@ $result = mysqli_query($conn, $sql);
     </div>
 
 </main>
+</div>
 
 </body>
 </html>
